@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JS Lecture</title>
+</head>
+<body>
+    <h3 style="text-align: center;">LUCKY PROJECT</h3>
+    <p>Enter your login details:</p>
+    
+    <input id="user" placeholder="Username">
+    <input id="pass" placeholder="Password" type="password">
+    <button id="login">Login</button>
+    <p id="status"></p>
+
+    <script>
+        const admin = {
+            username: "lucky1",
+            password: "81137272"
+        };
+
+        function getInputs() {
+            return [
+                document.getElementById("user").value,
+                document.getElementById("pass").value,
+            ];
+        }
+
+        function validateInputs(username, password) {
+            if (!username) return "Username can't be empty";
+            if (!password) return "Password can't be empty";
+            if (password.length < 8) return "Password must be at least 6 characters";
+            return null;
+        }
+
+        function checkLogin(username, password) {
+            return username === admin.username && password === admin.password;
+        }
+
+        function displayResult(msg, color) {
+            const statusElement = document.getElementById("status");
+            statusElement.innerText= msg;
+            statusElement.style.color = color;
+        }
+
+        document.getElementById("login").addEventListener("click", () => {
+            const [username, password] = getInputs();
+            const error = validateInputs(username, password);
+            if (error) {
+                displayResult(error, "red");
+                return;
+            }
+            if (checkLogin(username, password)) {
+                displayResult("Login successful!", "green");
+            } else {
+                displayResult("Invalid username or password", "red");
+            }
+        });
+    </script>
+</body>
+</html>
